@@ -1,0 +1,1 @@
+Groovy global variable scripts
