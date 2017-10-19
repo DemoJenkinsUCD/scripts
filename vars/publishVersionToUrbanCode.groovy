@@ -14,16 +14,19 @@
  * limitations under the License.
  */
 
-def call(String componentName, String applicationName, String version, String baseDir)
+import com.icct.ucd.DeployComponent
+import com.icct.ucd.UrbanCodeConfiguration
+
+def call(UrbanCodeConfiguration config, DeployComponent component, String applicationName, String version)
 {
-	echo "Publishing component version to Urban Code Deploy: ${componentName}."
+	echo "Publishing component version to Urban Code Deploy: ${component.name}."
 	
     step([$class: 'UCDeployPublisher',
-		siteName: "${UCD_SITE}",
+		siteName: config.site,
 		component: 
 		[
 			$class: 'com.urbancode.jenkins.plugins.ucdeploy.VersionHelper$VersionBlock',
-			componentName: componentName,
+			componentName: component.name,
 			createComponent: 
 			[
 				$class: 'com.urbancode.jenkins.plugins.ucdeploy.ComponentHelper$CreateComponentBlock',
@@ -35,7 +38,7 @@ def call(String componentName, String applicationName, String version, String ba
 				$class: 'com.urbancode.jenkins.plugins.ucdeploy.DeliveryHelper$Push',
 				pushVersion: version,
 				baseDir: baseDir,
-				fileIncludePatterns: '**/*.war',
+				fileIncludePatterns: component.artifactSpec,
 				fileExcludePatterns: '',
 				pushProperties: 'jenkins.server=Local\njenkins.reviewed=false',
 				pushDescription: 'Pushed from Jenkins',
@@ -46,9 +49,9 @@ def call(String componentName, String applicationName, String version, String ba
 	
 	withEnv(["PATH+UDCLIENT=${tool 'UrbanCodeClient'}"])
 	{
-		withCredentials([usernamePassword(credentialsId: "${UCD_CREDENTIAL}", usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')])
+		withCredentials([usernamePassword(credentialsId: config.credential, usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')])
 		{
-			sh "udclient -username ${USERNAME} -password ${PASSWORD} -weburl ${UCD_URL} addVersionStatus -component ${componentName} -version ${version} -status Stable"
+			sh "udclient -username ${USERNAME} -password ${PASSWORD} -weburl ${config.url} addVersionStatus -component ${component.name} -version ${version} -status Stable"
 		}
 	}
 }

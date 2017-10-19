@@ -13,19 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import com.icct.ucd.DeployComponent
+import com.icct.ucd.UrbanCodeConfiguration
 
-def call(String componentName, String applicationName, String version, String environment, String process)
+def call(UrbanCodeConfiguration config, DeployApplication app, String environment)
 {
-	echo "Deploying application via Urban Code Deploy: ${applicationName}."
+	echo "Deploying application via Urban Code Deploy: ${app.name}."
 	
     step([$class: 'UCDeployPublisher',
-		siteName: "${UCD_SITE}",
+		siteName: config.site,
 		deploy: [
 			$class: 'com.urbancode.jenkins.plugins.ucdeploy.DeployHelper$DeployBlock',
-			deployApp: applicationName,
+			deployApp: app.name,
 			deployEnv: environment,
-			deployProc: process,
-			deployVersions: "${componentName}:${BUILD_NUMBER}",
+			deployProc: app.process,
+			deployVersions: app.componentSpecification,
 			deployOnlyChanged: false
 		]
 	])
