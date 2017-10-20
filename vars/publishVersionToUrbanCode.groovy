@@ -37,7 +37,7 @@ def call(UrbanCodeConfiguration config, DeployComponent component, String applic
 			[
 				$class: 'com.urbancode.jenkins.plugins.ucdeploy.DeliveryHelper$Push',
 				pushVersion: version,
-				baseDir: baseDir,
+				baseDir: component.artifactBasePath,
 				fileIncludePatterns: component.artifactSpec,
 				fileExcludePatterns: '',
 				pushProperties: 'jenkins.server=Local\njenkins.reviewed=false',
