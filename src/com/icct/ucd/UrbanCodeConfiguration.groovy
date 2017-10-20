@@ -28,6 +28,6 @@ class UrbanCodeConfiguration implements Serializable
 	{
 		this.site = site
 		this.url = url
-		this.credential
+		this.credential = credential
 	}
 }
