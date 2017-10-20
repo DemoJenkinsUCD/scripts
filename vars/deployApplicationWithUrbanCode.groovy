@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import com.icct.ucd.DeployComponent
+import com.icct.ucd.DeployApplication
 import com.icct.ucd.UrbanCodeConfiguration
 
 def call(UrbanCodeConfiguration config, DeployApplication app, String environment)
