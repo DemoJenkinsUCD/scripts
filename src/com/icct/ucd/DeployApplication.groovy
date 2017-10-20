@@ -22,7 +22,7 @@ class DeployApplication implements Serializable
 {
 	String name
 	String process
-	Map components
+	Map components = new Map()
 	
 	DeployApplication(String name, String process)
 	{
