@@ -13,21 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import com.icct.ucd.DeployComponent
 
-package com.icct.ucd
-
-import java.io.Serializable
-
-class DeployComponent implements Serializable
+def call(String name, String artifactBasePath)
 {
-	String name
-	String artifactBasePath
-	String artifactSpec
-	
-	DeployComponent(String name, String artifactBasePath, String artifactSpec = '**/*.war')
-	{
-		this.name = name
-		this.artifactBasePath = artifactBasePath
-		this.artifactSpec = artifactSpec
-	}
+	new DeployComponent(name, artifactBasePath)
 }
