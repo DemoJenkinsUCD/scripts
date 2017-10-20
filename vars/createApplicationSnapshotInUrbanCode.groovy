@@ -13,17 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import com.icct.ucd.UrbanCodeConfiguration
 
-def call(String applicationName, String environment, String snapshotName)
+def call(UrbanCodeConfiguration config, String applicationName, String environment, String snapshotName)
 {
 	echo "Creating application snapshot in Urban Code Deploy: ${applicationName}."
 	
 	withEnv(["PATH+UDCLIENT=${tool 'UrbanCodeClient'}"])
 	{
-		withCredentials([usernamePassword(credentialsId: "${UCD_CREDENTIAL}", usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')])
+		withCredentials([usernamePassword(credentialsId: config.credential, usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')])
 		{
-			sh "udclient -username ${USERNAME} -password ${PASSWORD} -weburl ${UCD_URL} createSnapshotOfEnvironment -environment ${environment} -application ${applicationName} -name ${snapshotName}"
-			sh "udclient -username ${USERNAME} -password ${PASSWORD} -weburl ${UCD_URL} addStatusToSnapshot -application ${applicationName} -snapshot ${snapshotName} -statusName Stable"
+			sh "udclient -username ${USERNAME} -password ${PASSWORD} -weburl ${config.url} createSnapshotOfEnvironment -environment ${environment} -application ${applicationName} -name ${snapshotName}"
+			sh "udclient -username ${USERNAME} -password ${PASSWORD} -weburl ${config.url} addStatusToSnapshot -application ${applicationName} -snapshot ${snapshotName} -statusName Stable"
 		}
 	}
 }
