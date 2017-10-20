@@ -27,7 +27,7 @@ def call(UrbanCodeConfiguration config, DeployApplication app, String environmen
 			deployApp: app.name,
 			deployEnv: environment,
 			deployProc: app.process,
-			deployVersions: app.componentSpecification,
+			deployVersions: app.componentSpecification(),
 			deployOnlyChanged: false
 		]
 	])
