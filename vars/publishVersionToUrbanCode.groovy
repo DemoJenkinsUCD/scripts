@@ -27,12 +27,12 @@ def call(UrbanCodeConfiguration config, DeployComponent component, String applic
 		[
 			$class: 'com.urbancode.jenkins.plugins.ucdeploy.VersionHelper$VersionBlock',
 			componentName: component.name,
-			createComponent: 
-			[
-				$class: 'com.urbancode.jenkins.plugins.ucdeploy.ComponentHelper$CreateComponentBlock',
-				componentTemplate: '',
-				componentApplication: applicationName
-			],
+//			createComponent: 
+//			[
+//				$class: 'com.urbancode.jenkins.plugins.ucdeploy.ComponentHelper$CreateComponentBlock',
+//				componentTemplate: '',
+//				componentApplication: applicationName
+//			],
 			delivery: 
 			[
 				$class: 'com.urbancode.jenkins.plugins.ucdeploy.DeliveryHelper$Push',
