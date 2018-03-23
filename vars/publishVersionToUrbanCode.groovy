@@ -34,7 +34,7 @@ def call(UrbanCodeConfiguration config, DeployComponent component, String applic
 				baseDir: component.artifactBasePath,
 				fileIncludePatterns: component.artifactSpec,
 				fileExcludePatterns: '',
-				pushProperties: 'jenkins.server=Local\njenkins.reviewed=false',
+//				pushProperties: 'jenkins.server=Local\njenkins.reviewed=false',
 				pushDescription: 'Pushed from Jenkins',
 				pushIncremental: false
 			]
