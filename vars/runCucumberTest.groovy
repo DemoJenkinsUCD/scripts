@@ -22,7 +22,7 @@ String call(String feature, String baseDir)
 	{
 		sh 'bundle update'
 		def statusCode = sh script:"bundle exec cucumber features/${feature}.feature  -f pretty -f html -o logs/${feature}.html -f json -o cucumber.json", returnStatus:true
-		cucumber fileIncludePattern: '**/*.json', sortingMethod: 'ALPHABETICAL'
+		cucumber fileIncludePattern: '**/*.json', reducingMethod: 'MERGE_FEATURES_BY_ID', sortingMethod: 'ALPHABETICAL'
 		if (statusCode)
 		{
 			currentBuild.result = 'UNSTABLE'
